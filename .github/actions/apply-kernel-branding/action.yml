@@ -12,7 +12,6 @@ runs:
   using: "composite"
   steps:
     - name: Apply Kernel Name Branding
-      if: false
       shell: bash
       working-directory: ${{ github.workspace }}/kernel
       run: |

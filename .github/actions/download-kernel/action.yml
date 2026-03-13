@@ -51,10 +51,11 @@ runs:
 
         # Optionally pin kernel/common to an exact ref after syncing the matching branch family.
         if [ -n "${{ inputs.kernel_ref }}" ]; then
+          COMMON_REMOTE_URL="https://android.googlesource.com/kernel/common"
           echo "Pinning kernel/common to exact ref: ${{ inputs.kernel_ref }}"
-          if git -C common fetch --depth=1 origin "refs/tags/${{ inputs.kernel_ref }}"; then
+          if git -C common fetch --depth=1 "$COMMON_REMOTE_URL" "refs/tags/${{ inputs.kernel_ref }}"; then
             git -C common checkout --detach FETCH_HEAD
-          elif git -C common fetch --depth=1 origin "${{ inputs.kernel_ref }}"; then
+          elif git -C common fetch --depth=1 "$COMMON_REMOTE_URL" "${{ inputs.kernel_ref }}"; then
             git -C common checkout --detach FETCH_HEAD
           else
             echo "Error: unable to resolve kernel_ref '${{ inputs.kernel_ref }}' in kernel/common"
