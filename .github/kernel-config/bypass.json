@@ -6,6 +6,7 @@
     {"kernel_version": "5.15.X-android14-lts", "variant": "Bypass"},
     {"kernel_version": "6.1.X-android14-lts", "variant": "Bypass"},
     {"kernel_version": "6.6.X-android15-lts", "variant": "Bypass"},
+    {"kernel_version": "6.6.66-android15-2025-02", "variant": "Bypass", "kernel_ref": "android15-6.6-2025-02_r8"},
     {"kernel_version": "6.12.X-android16-lts", "variant": "Bypass" }
   ]
 }

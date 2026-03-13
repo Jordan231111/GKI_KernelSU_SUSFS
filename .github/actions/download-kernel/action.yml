@@ -11,6 +11,9 @@ inputs:
   os_patch_level:
     description: 'OS patch level (e.g., 2024-01)'
     required: true
+  kernel_ref:
+    description: 'Optional exact ref for kernel/common (for example android15-6.6-2025-02_r8)'
+    required: false
 
 outputs:
   deprecated_branch:
@@ -45,3 +48,17 @@ runs:
         
         # Sync kernel source
         repo --trace sync -c -j$(nproc --all) --fail-fast --no-tags --force-sync --no-clone-bundle
+
+        # Optionally pin kernel/common to an exact ref after syncing the matching branch family.
+        if [ -n "${{ inputs.kernel_ref }}" ]; then
+          echo "Pinning kernel/common to exact ref: ${{ inputs.kernel_ref }}"
+          if git -C common fetch --depth=1 origin "refs/tags/${{ inputs.kernel_ref }}"; then
+            git -C common checkout --detach FETCH_HEAD
+          elif git -C common fetch --depth=1 origin "${{ inputs.kernel_ref }}"; then
+            git -C common checkout --detach FETCH_HEAD
+          else
+            echo "Error: unable to resolve kernel_ref '${{ inputs.kernel_ref }}' in kernel/common"
+            exit 1
+          fi
+          echo "Pinned kernel/common to $(git -C common rev-parse --short HEAD)"
+        fi

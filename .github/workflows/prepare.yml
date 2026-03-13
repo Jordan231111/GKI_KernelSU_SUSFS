@@ -69,6 +69,7 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       kernel_version: ${{ matrix.kernel_version }}
+      kernel_ref: ${{ matrix.kernel_ref }}
       variant: ${{ matrix.variant }}
       ksu_commit: ${{ inputs.ksu_commit }}
       anykernel_commit: ${{ inputs.anykernel_commit }}

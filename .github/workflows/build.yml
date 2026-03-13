@@ -9,6 +9,9 @@ on:
       kernel_version:
         required: true
         type: string
+      kernel_ref:
+        required: false
+        type: string
       variant:
         required: false
         type: string
@@ -130,6 +133,7 @@ jobs:
         android_version: ${{ steps.parse.outputs.android_version }}
         kernel_version: ${{ steps.parse.outputs.kernel_version }}
         os_patch_level: ${{ steps.parse.outputs.os_patch_level }}
+        kernel_ref: ${{ inputs.kernel_ref }}
 
     - name: Extract Sublevel and Set File Name
       id: extract
